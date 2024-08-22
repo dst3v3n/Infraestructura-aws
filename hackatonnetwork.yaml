@@ -247,6 +247,8 @@ Resources:
   # Outputs
   ###########
 
+Outputs:
+
   PublicSubnet1Id:
     Value: !Ref PublicSubnet1
     Description: ID de la Subnet Publica 1
