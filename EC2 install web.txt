@@ -1,0 +1,46 @@
+sudo dnf update -y
+sudo dnf install git
+sudo yum update -y
+sudo yum groupinstall "Development Tools" -y
+sudo yum install openssl-devel libffi-devel bzip2-devel wget -y
+wget https://www.python.org/ftp/python/3.12.5/Python-3.12.5.tgz
+tar -xzf Python-3.12.5.tgz
+cd Python-3.12.5
+./configure --enable-optimizations
+sudo make altinstall
+python3.12 --version
+python3.12 -m pip install --upgrade pip==24.2
+pip3.12 --version
+sudo dnf install https://dev.mysql.com/get/mysql80-community-release-el9-4.noarch.rpm
+sudo dnf install mysql-community-devel
+python3.12 -m pip install mysqlclient
+pip3.12 install -r requirements.txt
+sudo dnf install mariadb105
+python3.12 -m venv env
+
+sudo yum remove mariadb105 -y
+sudo yum install mysql-community-server -y
+sudo systemctl start mysqld
+sudo systemctl enable mysqld
+sudo mysql_secure_installation
+
+#Comandos para cuando se reviente MySQL con la contraseña
+
+sudo systemctl stop mysqld
+sudo nano /etc/my.cnf
+
+[mysqld]
+skip-grant-tables
+skip-networking
+
+sudo systemctl start mysqld
+cd hackaton/
+nano settings.py		# cambiar contraseña y user, guardar y salir
+python3.12 manage.py migrate
+python3.12 manage.py runserver
+python3.12 manage.py runserver 0.0.0.0:8000
+
+http://54.205.210.127:8000/
+
+
+
